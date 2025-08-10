@@ -3,7 +3,7 @@ const {addSchool, listSchools} = require('../Controllers/controllers.js');
 const {addSchoolValidation, listSchoolsValidation} = require('../Middlewares/middleware.js');
 
 router.post("/addSchool", addSchoolValidation, addSchool);
-router.post("/listSchools", listSchoolsValidation, listSchools);
+router.get("/listSchools", listSchoolsValidation, listSchools);
 
 
 
