@@ -1,5 +1,5 @@
 # Introduction
-A simple api for adding a school listing and check the nearby school in the database
+A simple api for adding a school listing and checking the nearby school in the database
 
 # Technology_Used
 - Node.js
