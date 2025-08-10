@@ -1,7 +1,7 @@
 # Introduction
 A simple api for adding a school listing and checking the nearby school in the database
 
-# Technology_Used
+# Technology and Tools Used
 - Node.js
 - Express.js
 - mysql2 package
