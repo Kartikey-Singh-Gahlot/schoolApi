@@ -14,4 +14,4 @@ A simple api for adding a school listing and check the nearby school in the data
 
 ## Base Url : https://school-api-self.vercel.app/
 - "/addSchool" : adds new School to the api ( takes in name, address, lattitude and longitude  as parameters )
-- "/listSchool" : checks the nearby school ( takes in lattitude and longitude of the person ad parameters )
+- "/listSchool" : checks the nearby school ( takes in lattitude and longitude of the person as parameters )
