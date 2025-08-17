@@ -24,7 +24,6 @@ A simple api for adding a school listing and checking the nearby school in the d
   "address": "123 Main Street, Delhi",
   "latitude": 28.7041,
   "longitude": 77.1025
-
 }
 
 ### Method Get
