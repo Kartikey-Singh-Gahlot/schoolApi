@@ -36,4 +36,4 @@ A simple api for adding a school listing and checking the nearby school in the d
 
 
 # Postman Collection 
-- [Base Url](https://decten-kartz-4649904.postman.co/workspace/Kartikey's-Workspace~39d72905-4c2e-4cd6-83cf-c6ba612ef2f0/collection/47475217-a6fcdaf1-b512-42a1-a2a9-4f390e695ab7?action=share&source=copy-link&creator=47475217)
+- [schoolApi Postman ](https://decten-kartz-4649904.postman.co/workspace/Kartikey's-Workspace~39d72905-4c2e-4cd6-83cf-c6ba612ef2f0/collection/47475217-a6fcdaf1-b512-42a1-a2a9-4f390e695ab7?action=share&source=copy-link&creator=47475217)
