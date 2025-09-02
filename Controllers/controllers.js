@@ -1,24 +1,22 @@
-const connection = require('../Models/db.js');
+const schoolsModel = require('../Models/schoolModel.js');
 
 const addSchool = (req, res)=>{
    const {name, address, latitude, longitude} = req.body;
-   connection.query("INSERT INTO schools(name,address,latitude, longitude ) values(?, ?, ?, ?)", [name, address, latitude, longitude], (err, result)=>{
-     if(err){
-        res.status(500).json({
-            status : false,
-            message : "faild to insert data",
-            details : err 
-        })
-     }
-     else{
-        res.status(201).json({
-            status:true,
-            message : "Successfully inserted the data",
-            details : result
-        })
-     }
-   })
-} ;
+   try{
+      const school = new schoolsModel({name, address, latitude, longitude});
+      school.save();
+      res.status(200).json({
+         status:true,
+         body : "School Listing Created"
+      })
+   }
+   catch(err){
+      res.status(400).json({
+         status:false,
+         body:err
+      })
+   }
+  } ;
 
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -36,36 +34,37 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     return R * c;
 }
 
+
 const listSchools = (req, res)=>{
  const {latitude, longitude } = req.query;
-  connection.query("SELECT * FROM schools", (err,result)=>{
-     if(err){
-      res.status(500).json({
-         status :false,
-         message :"Unable to get data",
-         details : err
-      })
-     }
-     else{
-        let processed =  result.map((i)=>{
-          return {...i,distance : calculateDistance(latitude/1.0,longitude/1.0, i.latitude, i.longitude)}
-        });
-        for(let i=0; i<processed.length; i++){
-          for(let j=0; j<processed.length-i-1; j++){
-            if(processed[j].distance > processed[j+1].distance){
-               let temp = processed[j];
-               processed[j] = processed[j+1];
-               processed[j+1] = temp;
-            }
-          }
+ try{
+   const data = schoolsModel.find({});
+   const processedData = data.map((i)=>{
+    return {...i, distance:calculateDistance(latitude/1.0, longitude/1.0, i.latitude, i.longitude)}
+    });
+   for(let i=0; i<processed.length; i++){
+      for(let j=0; j<processed.length-i-1; j++){
+        if(processedData[j].distance > processedData[j+1].distance){
+           let temp = processedData[j];
+           processedData[j] = processedData[j+1];
+           processedData[j+1] = temp;
         }
-        res.status(200).json({
-         status : true,
-         message : "Data Fetched successfuly",
-         detail : processed
-        })
-     }
-  });
+      }
+   }
+   res.status(200).json({
+    status : true,
+    message : "Data Fetched successfuly",
+    detail : processedData
+   })
+ }
+ catch(err){
+   res.status(500).json({
+      status :false,
+      message :"Unable to get data",
+      details : err 
+   })
+ }
+ 
 }
 
 

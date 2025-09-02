@@ -1,5 +1,4 @@
-const { listSchools } = require('../Controllers/controllers.js');
-const connection = require('../Models/db.js');
+const schoolModel = require('../Models/schoolModel.js');
 
 const addSchoolValidation =  (req, res, next)=>{
     const {name, address, latitude, longitude} = req.body;
@@ -11,18 +10,17 @@ const addSchoolValidation =  (req, res, next)=>{
        })
     }
     else{
-        connection.query("SELECT * FROM schools WHERE name = ? && address = ? ", [name, address], (err, result)=>{
-           if(result.length>0){
-            res.status(500).json({
+        try{
+         schoolModel.find({name, address});
+         next();
+        }
+        catch(err){
+              res.status(500).json({
                 status : false,
                 message :"Failed to insert data",
                 details : "Entery already exists"
-            })
-           }
-            else{
-                next();
-            }
-        });
+              })
+        }
     }
 }
 
