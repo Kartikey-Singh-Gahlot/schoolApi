@@ -7,4 +7,4 @@ const schoolsSchema = new mongoose.Schema({
     longitude : {type:Number, required:[true, "logitude of the school is required"]}
 });
 
-module.exports = new schoolModel("schools", schoolsSchema);
+module.exports = new mongoose.model("schools", schoolsSchema);
