@@ -39,7 +39,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 const listSchools =async  (req, res)=>{
  const {latitude, longitude } = req.query;
  try{
-   const data = await schoolsModel.find({});
+   const data = await schoolsModel.find({}).lean();
    const processedData = data.map((i)=>{
     return {...i, distance:calculateDistance(parseFloat(latitude), parseFloat(longitude), i.latitude, i.longitude)}
     });
