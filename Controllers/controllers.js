@@ -1,13 +1,14 @@
 const schoolsModel = require('../Models/schoolModel.js');
 
-const addSchool = (req, res)=>{
+const addSchool =  async (req, res)=>{
    const {name, address, latitude, longitude} = req.body;
    try{
       const school = new schoolsModel({name, address, latitude, longitude});
-      school.save();
+      await school.save();
       res.status(200).json({
          status:true,
-         body : "School Listing Created"
+         body : "School Listing Created",
+         details : school
       })
    }
    catch(err){
@@ -35,15 +36,15 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 }
 
 
-const listSchools = (req, res)=>{
+const listSchools =async  (req, res)=>{
  const {latitude, longitude } = req.query;
  try{
-   const data = schoolsModel.find({});
+   const data = await schoolsModel.find({});
    const processedData = data.map((i)=>{
-    return {...i, distance:calculateDistance(latitude/1.0, longitude/1.0, i.latitude, i.longitude)}
+    return {...i, distance:calculateDistance(parseFloat(latitude), parseFloat(longitude), i.latitude, i.longitude)}
     });
-   for(let i=0; i<processed.length; i++){
-      for(let j=0; j<processed.length-i-1; j++){
+   for(let i=0; i<processedData.length; i++){
+      for(let j=0; j<processedData.length-i-1; j++){
         if(processedData[j].distance > processedData[j+1].distance){
            let temp = processedData[j];
            processedData[j] = processedData[j+1];

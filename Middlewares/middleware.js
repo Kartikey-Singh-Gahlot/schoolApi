@@ -1,6 +1,6 @@
 const schoolModel = require('../Models/schoolModel.js');
 
-const addSchoolValidation =  (req, res, next)=>{
+const addSchoolValidation = async  (req, res, next)=>{
     const {name, address, latitude, longitude} = req.body;
     if( !name || !address ){
        res.status(400).json({
@@ -11,7 +11,7 @@ const addSchoolValidation =  (req, res, next)=>{
     }
     else{
         try{
-         schoolModel.find({name, address});
+         await schoolModel.find({name, address});
          next();
         }
         catch(err){
